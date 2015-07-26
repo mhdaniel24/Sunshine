@@ -75,7 +75,8 @@ public class  MainActivityFragment extends Fragment {
     void updateWeather() {
         FetchWeatherTask weatherTask = new FetchWeatherTask();
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getActivity());
-        String location = prefs.getString(getString(R.string.pref_location_key), getString(R.string.pref_location_default));
+        String location = prefs.getString(getString(R.string.pref_location_key),
+                getString(R.string.pref_location_default));
         weatherTask.execute(location);
     }
 
@@ -156,7 +157,8 @@ public class  MainActivityFragment extends Fragment {
                 // Construct the URL for the OpenWeatherMap query
                 // Possible parameters are avaiable at OWM's forecast API page, at
                 // http://openweathermap.org/API#forecast
-                final String FORECAST_BASE_URL = "http://api.openweathermap.org/data/2.5/forecast/daily?";
+                final String FORECAST_BASE_URL = "http://api.openweathermap.org/data/2.5" +
+                        "/forecast/daily?";
                 final String QUERY_PARAM = "q";
                 final String FORMAT_PARAM = "mode";
                 final String UNITS_PARAM = "units";
@@ -168,7 +170,8 @@ public class  MainActivityFragment extends Fragment {
                         .appendQueryParameter(UNITS_PARAM, units)
                         .appendQueryParameter(DAYS_PARAM, Integer.toString(numDays))
                         .build();
-                //URL url = new URL("http://api.openweathermap.org/data/2.5/forecast/daily?q=33126&mode=json&units=metric&cnt=7");
+                //URL url = new URL("http://api.openweathermap.org/data/2.5/forecast/daily?q=" +
+                //      "33126&mode=json&units=metric&cnt=7");
                 URL url = new URL(builtUri.toString());
                 //Log.v(LOG_TAG, "Built URI " + builtUri.toString());//TODO: delete this
 
@@ -203,8 +206,8 @@ public class  MainActivityFragment extends Fragment {
                 forecastJsonStr = buffer.toString();
             } catch (IOException e) {
                 Log.e("PlaceholderFragment", "Error ", e);
-                // If the code didn't successfully get the weather data, there's no point in attemping
-                // to parse it.
+                // If the code didn't successfully get the weather data, there's no point
+                // in attemping to parse it.
                 //forecastJsonStr = null;
                 return null;
             } finally{
@@ -258,8 +261,10 @@ public class  MainActivityFragment extends Fragment {
          */
         public String formatHighLows(double high, double low) {
             // For presentation, assume the user doesn't care about tenths of a degree.
-            SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(getActivity());
-            String unitType = sharedPrefs.getString(getString(R.string.pref_units_key), getString(R.string.pref_units_metric));
+            SharedPreferences sharedPrefs = PreferenceManager.
+                    getDefaultSharedPreferences(getActivity());
+            String unitType = sharedPrefs.getString(getString(R.string.pref_units_key),
+                    getString(R.string.pref_units_metric));
 
             if (unitType.equals(getString(R.string.pref_units_imperial))) {
                 high = (high * 1.8) + 32;
@@ -363,7 +368,4 @@ public class  MainActivityFragment extends Fragment {
 //
 //    }
     }
-
-
-
 }
