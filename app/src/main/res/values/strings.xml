@@ -8,4 +8,15 @@
     <string name="pref_location_label">Location</string>
     <string name="pref_location_key" translatable="false">location</string>
     <string name="pref_location_default" translatable="false">33126</string>
+
+    <string name="pref_units_label">Temperature Units</string>
+    <string name="pref_units_metric" transalatable="false">Metric</string>
+    <string name="pref_units_key" tarnslatable="false">units</string>
+    <string name="pref_units_imperial" translatable="false">Imperial</string>
+
+    <array name="pref_units_values">
+        <item>Metric</item>
+        <item>Imperial</item>
+    </array>
+
 </resources>
