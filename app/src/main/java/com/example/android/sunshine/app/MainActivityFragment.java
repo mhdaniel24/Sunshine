@@ -1,9 +1,11 @@
 package com.example.android.sunshine.app;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -25,8 +27,6 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 
 
 /**
@@ -56,29 +56,42 @@ public class  MainActivityFragment extends Fragment {
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
         if(id == R.id.action_refresh){
-            FetchWeatherTask weatherTask = new FetchWeatherTask();
-            weatherTask.execute("33126");
+            updateWeather();
             return true;
         }
         return super.onOptionsItemSelected(item);
     }
 
     @Override
+    public void onStart() {
+        super.onStart();
+        updateWeather();
+    }
+
+    void updateWeather() {
+        FetchWeatherTask weatherTask = new FetchWeatherTask();
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getActivity());
+        String location = prefs.getString(getString(R.string.pref_location_key), getString(R.string.pref_location_default));
+        weatherTask.execute(location);
+    }
+
+
+    @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_main, container, false);
 
-        String[] forecastArray = {
-                "Today - Sunny",
-                "Tomorrow - Foggy",
-                "Data1",
-                "Data2",
-                "Data3",
-                "Data4",
-                "Data5"
-        };
+//        String[] forecastArray = {
+//                "Today - Sunny",
+//                "Tomorrow - Foggy",
+//                "Data1",
+//                "Data2",
+//                "Data3",
+//                "Data4",
+//                "Data5"
+//        };
 
-        List<String> weekForcast = new ArrayList<String>(Arrays.asList(forecastArray));
+        // List<String> weekForcast = new ArrayList<String>(Arrays.asList(forecastArray));
 
         //this is the adapter for the list view of forcast
          mForcastAdapter = new ArrayAdapter<String>(
@@ -89,7 +102,7 @@ public class  MainActivityFragment extends Fragment {
                 //id of the textview to populate
                 R.id.list_item_forcast_textview,
                 //Forcast data
-                weekForcast);
+                 new ArrayList<String>());
 
         //Get a reference to the ListView, and attach the adapter to it
         ListView listView = (ListView) rootView.findViewById(R.id.listview_forecast);
