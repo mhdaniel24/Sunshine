@@ -173,7 +173,6 @@ public class  MainActivityFragment extends Fragment {
                 //URL url = new URL("http://api.openweathermap.org/data/2.5/forecast/daily?q=" +
                 //      "33126&mode=json&units=metric&cnt=7");
                 URL url = new URL(builtUri.toString());
-                //Log.v(LOG_TAG, "Built URI " + builtUri.toString());//TODO: delete this
 
                 // Create the request to OpenWeatherMap, and open the connection
                 urlConnection = (HttpURLConnection) url.openConnection();
@@ -351,9 +350,9 @@ public class  MainActivityFragment extends Fragment {
             }
 
             //TODO: delete this
-            for (String s : resultStrs) {
-                Log.v(LOG_TAG, "Forecast entry: " + s);
-            }
+//            for (String s : resultStrs) {
+//                Log.v(LOG_TAG, "Forecast entry: " + s);
+//            }
             return resultStrs;
         }
 

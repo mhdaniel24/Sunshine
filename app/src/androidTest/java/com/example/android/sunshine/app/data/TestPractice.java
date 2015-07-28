@@ -10,6 +10,8 @@ public class TestPractice extends AndroidTestCase {
     /*
         This gets run before every test.
      */
+
+    //runs before every test
     @Override
     protected void setUp() throws Exception {
         super.setUp();
@@ -30,6 +32,7 @@ public class TestPractice extends AndroidTestCase {
         }
     }
 
+    //runs after every test
     @Override
     protected void tearDown() throws Exception {
         super.tearDown();
